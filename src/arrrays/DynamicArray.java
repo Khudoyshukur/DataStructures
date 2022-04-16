@@ -2,50 +2,19 @@ package arrrays;
 
 
 import java.util.Iterator;
+import java.util.Objects;
 
-public class DynamicArray {
-    public static void main(String[] args) {
-        Array<Integer> integers = new Array<Integer>(20);
-        integers.add(0);
-        integers.add(1);
-        integers.add(2);
-        integers.add(3);
-        integers.add(4);
-        integers.add(5);
-        integers.add(6);
-        System.out.println(integers);
-
-        System.out.println(integers.indexOf(5));
-
-        integers.set(6, 7);
-        System.out.println(integers);
-
-        System.out.println(integers.get(5));
-
-        integers.removeAt(5);
-        System.out.println(integers);
-
-        integers.remove(0);
-        System.out.println(integers);
-
-        System.out.println(integers.contains(4));
-
-        integers.clear();
-        System.out.println(integers);
-    }
-}
-
-class Array<T> implements Iterable<T> {
+public class DynamicArray<T> extends DynamicArrayContract<T> {
 
     private T[] arr;
     private int length;
     private int capacity;
 
-    public Array() {
+    public DynamicArray() {
         this(16);
     }
 
-    public Array(int capacity) {
+    public DynamicArray(int capacity) {
         if (capacity < 0) {
             throw new IllegalArgumentException("Illegal capacity: " + capacity);
         }
@@ -54,22 +23,27 @@ class Array<T> implements Iterable<T> {
         arr = (T[]) new Object[capacity];
     }
 
+    @Override
     public int size() {
         return length;
     }
 
+    @Override
     public boolean isEmpty() {
         return size() == 0;
     }
 
+    @Override
     public T get(int index) {
         return arr[index];
     }
 
+    @Override
     public void set(int index, T element) {
         arr[index] = element;
     }
 
+    @Override
     public void clear() {
         for (int index = 0; index < capacity; index++) {
             arr[index] = null;
@@ -77,6 +51,7 @@ class Array<T> implements Iterable<T> {
         length = 0;
     }
 
+    @Override
     public void add(T element) {
         // Time to resize!
         if (length + 1 > capacity) {
@@ -96,6 +71,7 @@ class Array<T> implements Iterable<T> {
         arr[length++] = element;
     }
 
+    @Override
     public T removeAt(int rm_index) {
         if (rm_index < 0 || rm_index >= length) {
             throw new IndexOutOfBoundsException();
@@ -114,9 +90,10 @@ class Array<T> implements Iterable<T> {
         return data;
     }
 
+    @Override
     public boolean remove(Object object) {
         for (int i = 0; i < length; i++) {
-            if (arr[i].equals(object)) {
+            if (Objects.equals(arr[i], object)) {
                 removeAt(i);
                 return true;
             }
@@ -125,9 +102,10 @@ class Array<T> implements Iterable<T> {
         return false;
     }
 
+    @Override
     public int indexOf(Object object) {
         for (int i = 0; i < length; i++) {
-            if (arr[i].equals(object)) {
+            if (Objects.equals(arr[i], object)) {
                 return i;
             }
         }
@@ -135,6 +113,7 @@ class Array<T> implements Iterable<T> {
         return -1;
     }
 
+    @Override
     public boolean contains(Object object) {
         return indexOf(object) != -1;
     }
