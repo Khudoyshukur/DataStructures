@@ -1,37 +1,36 @@
-package heap;
+package pqueue;
 
-import base.BinaryHeapContract;
+import base.PQueueContract;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
-public class BinaryHeap<T extends Comparable<T>> extends BinaryHeapContract<T> {
+public class PQueue<T extends Comparable<T>> extends PQueueContract<T> {
 
     private final List<T> heap;
 
-    public BinaryHeap() {
+    public PQueue() {
         this(1);
     }
 
-    public BinaryHeap(int capacity) {
+    public PQueue(int capacity) {
         heap = new ArrayList<>(capacity);
     }
 
-    public BinaryHeap(T element) {
+    public PQueue(T element) {
         this();
         add(element);
     }
 
-    public BinaryHeap(Collection<T> elements) {
+    public PQueue(Collection<T> elements) {
         this(elements.size());
         for (T element : elements) {
             add(element);
         }
     }
 
-    public BinaryHeap(T[] elements) {
+    public PQueue(T[] elements) {
         this(elements.length);
         for (T element : elements) {
             add(element);

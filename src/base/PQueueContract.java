@@ -1,6 +1,6 @@
 package base;
 
-public abstract class BinaryHeapContract<T extends Comparable<T>> {
+public abstract class PQueueContract<T extends Comparable<T>> {
     // Returns true/false depending on if the priority queue is empty
     public abstract boolean isEmpty();
 
